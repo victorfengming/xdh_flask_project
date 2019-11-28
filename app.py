@@ -1,11 +1,21 @@
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
 
 @app.route('/')
-def hello_world():
-    return 'Hello World!'
+def index():
+    return render_template('index.html')
+
+
+@app.route('/abc')
+def abc():
+    return 'abc World!'
+
+
+@app.route('/love')
+def love():
+    return '<h1 style="color:red;">abc World!</h1>'
 
 
 if __name__ == '__main__':
