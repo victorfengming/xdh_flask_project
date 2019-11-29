@@ -3,14 +3,14 @@ from flask import Flask, render_template
 app = Flask(__name__)
 
 
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-
 @app.route('/abc')
 def abc():
     return 'abc World!'
+
+
+@app.route('/')
+def index():
+    return render_template('index.html',username='mengya')
 
 
 @app.route('/love')
