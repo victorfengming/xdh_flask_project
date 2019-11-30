@@ -1,6 +1,6 @@
 create table wxapp.books
 (
-    id           int            not null comment '主键' primary key,
+    id           int            comment '主键' AUTO_INCREMENT primary key,
     title        varchar(255)   null comment '书名',
     author       varchar(255)   null comment '作者',
     pic_url      varchar(255)   null comment '封面图',
@@ -15,4 +15,7 @@ create table wxapp.books
     num          int            null comment '可借数量',
     addtime      datetime       null comment '添加时间'
 );
+
+drop table wxapp.books;
+
 
