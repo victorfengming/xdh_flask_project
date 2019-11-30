@@ -4,7 +4,7 @@ import time
 
 from app import app
 from . import admin
-from flask import render_template, jsonify, request
+from flask import render_template, jsonify, request, url_for
 from app.models import Model
 
 
@@ -17,7 +17,7 @@ def index():
 # 图书列表
 @admin.route("/books/index")
 def books_index():
-    res = Model().query('select * from user')
+    res = Model().query('select * from wxapp.books')
     print(res)
 
     # return jsonify(res)
@@ -77,7 +77,11 @@ def books_add():
         '''.format(**data)
 
         print(sql)
-
+        res = Model().exec(sql)
+        if res:
+            return '<script>alert("添加成功");location.href="'+url_for('admin.books_index')+'"</script>'
+        else:
+            return '<script>alert("添加失败");location.href="'+url_for('admin.books_index')+'"</script>'
 
 
         return render_template("book/add.html")
