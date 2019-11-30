@@ -17,11 +17,15 @@ def index():
 # 图书列表
 @admin.route("/books/index")
 def books_index():
-    res = Model().query('select * from wxapp.books')
-    print(res)
-
+    # 获取当前所有图书信息
+    data = Model().query('select * from wxapp.books')
+    # 加载模板,输出数据
+    print("-" * 60)
+    for i in data:
+        print(i)
+        print("-"*60)
     # return jsonify(res)
-    return render_template("book/index.html")
+    return render_template("book/index.html",books=data)
 
 
 # 图书的添加
