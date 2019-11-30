@@ -1,3 +1,47 @@
+
+
+show databases;
+
+use wxapp;
+
+
+show tables;
+
+select *
+from user;
+
+insert into user(name)
+values ("zhydk");
+
+
+
+create table user
+(
+    id   INT         NOT NULL AUTO_INCREMENT,
+    name VARCHAR(20) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+
+
+insert into books values(
+            null,
+            "php",
+            "高洛峰",
+            "1575100638.956406465989.jpg",
+            "兄弟连",
+            "79.00",
+            " 978712109441",
+            "阿瑞斯多",
+            "妹夫",
+            "阿瑞斯多",
+            "2019-11",
+            "0",
+            "43",
+            "2019-11-30 15:57:18"
+        )
+
+
 create table wxapp.books
 (
     id           int            comment '主键' AUTO_INCREMENT primary key,
