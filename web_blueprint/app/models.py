@@ -72,6 +72,26 @@ class Model():
         self.Mysql_link.close()
 
 
+# 图书
+'''
+表中有哪些字段
+id  
+书名 title
+作者 author
+封面图
+价格 
+出版社
+数量
+书号
+内容推荐 
+作者简介
+目录
+状态
+上架日期
+'''
+# 豆瓣 有个api接口,只要你提供书号,就能返回所有相关信息
+
+
 if __name__ == '__main__':
 
     # # method1
