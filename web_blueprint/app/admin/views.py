@@ -1,6 +1,6 @@
 from . import admin
-from flask import render_template
-
+from flask import render_template,jsonify
+from app.models import Model
 # 后台首页
 @admin.route("/")
 def index():
@@ -9,4 +9,9 @@ def index():
 # 图书列表
 @admin.route("/books/index")
 def books_index():
-    return render_template("book/index.html")
+
+    res = Model().query('select * from user')
+    print(res)
+
+    return jsonify(res)
+    # return render_template("book/index.html")
