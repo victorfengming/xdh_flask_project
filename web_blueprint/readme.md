@@ -62,3 +62,5 @@ db.close()
 其中书籍的信息可以通过书号拿到
 
 我们先写一个,表单的
+
+内容可以参考:https://book.douban.com/
