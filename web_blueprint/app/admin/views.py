@@ -88,4 +88,14 @@ def books_add():
             return '<script>alert("添加失败");location.href="'+url_for('admin.books_index')+'"</script>'
 
 
-        return render_template("book/add.html")
+        # return render_template("book/add.html")
+
+# isbn13书籍查询
+@admin.route('/books/search')
+def books_search():
+    isbn13 = request.args.get('isbn13')
+
+    # 爬虫,shixian获取书籍信息
+    url = 'https://api.douban.com/v2/book/isbn/'
+
+    return isbn13

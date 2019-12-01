@@ -9,11 +9,36 @@
     <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
         <div class="widget am-cf">
             <div class="widget-head am-cf">
-                <div class="widget-title am-fl">图书录入</div>
+                <div class="widget-title am-fl">
+                    图书录入
+                </div>
+                <input type="" id="doubancode" name="doubancode" placeholder="通过ISBN书号查询">
+                <button id="btn">查询</button>
                 <div class="widget-function am-fr">
                     <a href="javascript:;" class="am-icon-cog"></a>
                 </div>
             </div>
+
+            <script type="text/javascript">
+                $('#btn').click(function () {
+                    // 获取书号
+                    var isbn13 = $('#doubancode').val();
+
+                    console.log(isbn13);
+                    var reg = /\d{13}/;
+                    if (!reg.test(isbn13)) {
+                        alert("请输入正确对待学号信息!");
+                        return;
+                    }
+
+                    // 发送ajax请求到后端服务器
+                    $.get('{{ url_for('admin.books_search') }}', {'isbn13': isbn13}, function (data) {
+                        console.log(data);
+
+                    });
+                })
+            </script>
+
             <div class="widget-body am-fr">
 
                 <form action="{{ url_for('admin.books_add')}}" method="POST"  enctype="multipart/form-data" class="am-form tpl-form-line-form">
@@ -159,5 +184,3 @@
 </div>
 
 {% endblock %}
-
-
