@@ -1,0 +1,27 @@
+<view class="content" scroll-y="true">
+  <view class="search-bar">
+    <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+    <input placeholder="请输入书名" bindchange="inputChange"/>
+    <button type="primary" bindtap="queryBooks">查詢</button>
+  </view>
+  <view class="header-bg"></view>
+  <view class="book-content">
+    <view wx:for="{{bookList}}" wx:key="{{item}}"  id="{{item.isbn13}}" data-qty="{{item.qty}}" bindtap="goToDetailPage">
+      <view class="book-list">
+        <view class="book-image">
+          <image src="{{item.pic_url}}" mode="aspectFit"></image>
+        </view>
+        <view class="book-info">
+          <view class="book-info-style">
+            <view>书名:{{item.title}}</view>
+            <view>作者:{{item.author}}\n</view>
+            <view>价格:{{item.price}}\n</view>
+            <view>出版信息:{{item.publisher}}\n</view>
+            <view>可借数量:{{item.num}}\n</view>
+          </view>
+        </view>
+      </view>
+      <view class="line"></view>
+    </view>
+  </view>
+</view>
