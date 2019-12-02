@@ -1,3 +1,6 @@
+import datetime
+import json
+
 from flask import jsonify, request
 
 from . import api
@@ -26,3 +29,47 @@ def books_list():
         print(data)
 
     return jsonify(data)
+
+#
+@api.route("/register")
+def register():
+    # 接收数据
+    data = request.args.to_dict()
+    print(data)
+    print('-'*50)
+    '''
+    {'code': '043mFDDu03NYIi1aPPBu0IqFDu0mFDDH', 'method': 'POST', 'userinfo': '{"username":"小萌芽","phone":"13940206091","bumen":"xdh","nikeName":"Victor","avatarUrl":"https://wx.qlogo.cn/mmopen/vi_32/iaIzMeic5IhT1mSy3uccEjHNyy30KrsXXIlCtTj3KRBiaXgz2CJ13EIAsia7Bx8WQT83u7g0iadEibTOicPZ0z46DK9ow/132"}'}
+
+    '''
+    # data['userinfo'] 是字符串格式,需要抓换类型
+    user_info_data = json.loads(data['userinfo'])
+
+    user_info_data['addtime'] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    print(user_info_data)
+    print('-'*50)
+
+    # 执行数据的添加
+    sql = '''
+        insert into users values(
+        null,
+        "{nikeName}",
+        "{avatarUrl}",
+        "{username}",
+        "{bumen}",
+        "{phone}",
+        "{addtime}")
+        '''.format(**user_info_data)
+    # '''
+    # TODO 这里可能会遇到SQL中有引号问题(SQL注入)
+    # '''
+    print(sql)
+
+    user = Model().exec(sql)
+
+    # 我们返回 id
+    # return jsonify({'code':id})
+    # 这里有问题了,你执行完之后怎么拿id
+
+
+

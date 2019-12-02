@@ -62,6 +62,9 @@ class Model():
             # fanhui
             num = self.Mysql_cursor.rowcount
             return num
+            # 返回最后插入的id
+            # self.link.insert_id()
+
         except:
             self.Mysql_link.rollback()
             return False
