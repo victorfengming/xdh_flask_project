@@ -65,7 +65,7 @@ Page({
 
     },
     goToDetailPage: function (e) {
-        //
+        // 这个e就是时间对象本身
         var isbn13 = e.currentTarget.id;
         var book = {};
         for (var i = 0; i < this.data.bookList.length; i++) {

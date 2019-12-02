@@ -42,10 +42,10 @@ Page({
     });
 
     // 2, 接受页面传递过来的书籍信息
-    var book = JSON.parse(options.bookinfo)
+    var book = JSON.parse(options.bookinfo);
     that.setData({
       bookMsg: book,
-    })
+    });
 
     // 3,判断当前的书籍数量
     if(book.num > 0){
@@ -66,8 +66,8 @@ Page({
   },
   
   borrowBook: function () {
-   
-    var that = this
+
+    var that = this;
     //借书
     // 1, 检查用户是否已经登录
     // 获取userid
@@ -75,8 +75,8 @@ Page({
       key: 'userid',
       success(res) {
         // 已经登录
-        var userid = res.data
-        var book_isbn = that.data.bookMsg.isbn13
+        var userid = res.data;
+        var book_isbn = that.data.bookMsg.isbn13;
         // console.log(userid)
         // console.log(book_isbn)
         // 2,请求服务器 发送数据 完成借阅
