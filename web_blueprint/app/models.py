@@ -1,146 +1,104 @@
+
+
+
+# pymysql 
 '''
-# 导包
+    1,链接mysql数据库
+    # 打开数据库连接
+    db = pymysql.connect("localhost","testuser","test123","TESTDB" )
+
+
+    2,创建游标对象
+    # 使用 cursor() 方法创建一个游标对象 cursor
+    cursor = db.cursor()
+
+    3,执行sql语句
+    # 使用 execute()  方法执行 SQL 查询 
+    cursor.execute("SELECT VERSION()")
+
+    4,返回结果 
+    fetchone 获取单条结果,
+    fetchall 获取所有结果
+    rowcount: 这是一个只读属性，并返回执行execute()方法后影响的行数。
+    # 使用 fetchone() 方法获取单条数据.
+    data = cursor.fetchone()
+
+    5,关闭链接
+    # 关闭数据库连接
+    db.close()
+'''
 import pymysql
 
-# 打开数据库连接
-db = pymysql.connect("localhost", "testuser", "test123", "TESTDB")
-
-# 使用 cursor() 方法创建一个游标对象 cursor
-cursor = db.cursor()
-
-# 使用 execute()  方法执行 SQL 查询
-cursor.execute("SELECT VERSION()")
-
-# 使用 fetchone() 方法获取单条数据.
-data = cursor.fetchone()
-
-print("Database version : %s " % data)
-
-# 关闭数据库连接
-db.close()
-
-'''
-import pymysql
-import re
-
-# 把pymysql的操作给他封装到一个类里面
 class Model():
     # 属性
-    Mysql_localhost = '127.0.0.1'
+    Mysql_localhost = 'localhost'
     Mysql_username = 'root'
-    Mysql_password = ''
+    Mysql_password = '123456'
     Mysql_select_DB = 'wxapp'
     Mysql_charset = 'utf8mb4'
-    Mysql_cursorclass = pymysql.cursors.DictCursor
+    Mysql_cursorclass=pymysql.cursors.DictCursor
     Mysql_link = ''
-    Mysql_cursor = ''
+    Mysql_cusor = ''
 
+    # 链接数据库
     def __init__(self):
-        # 连接数据库
-        self.Mysql_link = pymysql.connect(
-            self.Mysql_localhost,
-            self.Mysql_username,
-            self.Mysql_password,
-            self.Mysql_select_DB,
-            charset = self.Mysql_charset,
-            cursorclass=self.Mysql_cursorclass
-        )
-        self.Mysql_cursor = self.Mysql_link.cursor()
-
+        # 链接mysql
+        # 打开数据库连接
+        self.Mysql_link = pymysql.connect(self.Mysql_localhost,self.Mysql_username,
+            self.Mysql_password,self.Mysql_select_DB,
+            charset=self.Mysql_charset,cursorclass=self.Mysql_cursorclass 
+            )
+        # 使用 cursor() 方法创建一个游标对象 cursor
+        self.Mysql_cusor = self.Mysql_link.cursor()
 
     # 查询方法
     def query(self,sql):
-        self.Mysql_cursor.execute(sql)
-        # 返回 查询结果
-        return self.Mysql_cursor.fetchall()
-        pass
+        self.Mysql_cusor.execute(sql)
+        # 返回查询结果
+        return self.Mysql_cusor.fetchall()
 
     # 执行方法
     def exec(self,sql):
         try:
-            self.Mysql_cursor.execute(sql)
+            self.Mysql_cusor.execute(sql)
             self.Mysql_link.commit()
-            # 判断当前的SQL是添加还是其他
-            # res = re.exec('insert',sql)
-            # 正则不会写,改用in
-            res = 'insert' in sql
-
-            if res:
-                # fanhui最后插入id
-                return self.Mysql_cursor.lastrowid
+            # 判断当前的sql是添加还是其它
+            if 'insert' in sql:
+                # 返回最后插入id
+                userid = self.Mysql_cusor.lastrowid
+                return userid
             else:
-
-                num = self.Mysql_cursor.rowcount
+                # 返回受影响的行数
+                num = self.Mysql_cusor.rowcount
                 return num
-                # 返回最后插入的id
-                # self.link.insert_id()
-
+          
         except:
+            # 返回false
             self.Mysql_link.rollback()
             return False
-        pass
 
-    # 关闭数据库连接
+    # 添加
+    # def add():
+    #     pass
+
+    # 关闭数据库链接
     def __del__(self):
         self.Mysql_link.close()
 
-
 # 图书
 '''
-表中有哪些字段
-id  
-书名 title
-作者 author
-封面图
-价格 
-出版社
-数量
-书号
-内容推荐 
-作者简介
-目录
-状态
-上架日期
+id 书名 title  作者 author 封面图 价格 出版社 数量 书号  内容推荐 作者简介  目录 状态 上架日期 
 '''
-# 豆瓣 有个api接口,只要你提供书号,就能返回所有相关信息
-
 '''
 借阅
-id
-bookid
-谁接的
-时间
-借阅时长
-预计归还时间
-是否归还 0 1
-'''
+id  bookid userid(谁借的)  时间 是否归还 0  1
 
 '''
-会员表
-    id
-    昵称
-    手机号
-    openid
-        (这个不是用户原始的id),
-        这个能够判断你关没关注这个公众号
-    所属部门
-    token
-        这个可NB了,
-        我获取用户信息后,我怎么知道登录没呢
-        这回可没有session,所有要整个介玩意
+
+'''会员
+id 昵称 头像 手机号  所属部门 addtime
 '''
 
-if __name__ == '__main__':
-
-    # # method1
-    # m = Model()
-    # res = m.query('select * from user')
-    # print(res)
 
 
-    # # method2
-    # res = Model().query('select * from user')
 
-    # # method3
-    res = Model().exec('insert into user(name) values("wakdwl"),("iuru"),("guakqu")')
-    print(res)
