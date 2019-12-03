@@ -21,6 +21,7 @@ db.close()
 
 '''
 import pymysql
+import re
 
 # 把pymysql的操作给他封装到一个类里面
 class Model():
@@ -59,11 +60,20 @@ class Model():
         try:
             self.Mysql_cursor.execute(sql)
             self.Mysql_link.commit()
-            # fanhui
-            num = self.Mysql_cursor.rowcount
-            return num
-            # 返回最后插入的id
-            # self.link.insert_id()
+            # 判断当前的SQL是添加还是其他
+            # res = re.exec('insert',sql)
+            # 正则不会写,改用in
+            res = 'insert' in sql
+
+            if res:
+                # fanhui最后插入id
+                return self.Mysql_cursor.lastrowid
+            else:
+
+                num = self.Mysql_cursor.rowcount
+                return num
+                # 返回最后插入的id
+                # self.link.insert_id()
 
         except:
             self.Mysql_link.rollback()

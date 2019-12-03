@@ -3,6 +3,7 @@ import json
 
 from flask import jsonify, request
 
+import app
 from . import api
 from app.models import Model
 
@@ -33,6 +34,14 @@ def books_list():
 #
 @api.route("/register")
 def register():
+    # 获取code
+    code = request.args.get('code')
+    # 向微信服务器发请求 获取openid
+    # 向微信服务器发请求,
+    wxurl = '''
+    https://api.weixin.qq.com/sns/jscode2session?appid={APPID}&secret={SECRET}
+    '''.format(APPID=app.config['APPID'],SECRET=app.config['SECRET'],)
+    # 判断openid 是否 存在,存在更新,不存在添加
     # 接收数据
     data = request.args.to_dict()
     print(data)
@@ -62,11 +71,14 @@ def register():
         '''.format(**user_info_data)
     # '''
     # TODO 这里可能会遇到SQL中有引号问题(SQL注入)
-    # '''
+    # 解决方案:SQL预处理,SQL参数绑定
     print(sql)
 
-    user = Model().exec(sql)
-
+    userid = Model().exec(sql)
+    print('-'*50)
+    print(userid)
+    print('-'*50)
+    return jsonify({'code':userid,'msg':'成功!'})
     # 我们返回 id
     # return jsonify({'code':id})
     # 这里有问题了,你执行完之后怎么拿id
