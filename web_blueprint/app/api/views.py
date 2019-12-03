@@ -13,17 +13,19 @@ def index():
 
 @api.route("/list")
 def books_list():
-
     # 获取关键字
-    keywords = request.args.get('keywords',None)
+    keywords = request.args.get('keywords', None)
     if keywords:
-        # 搜索书籍信息
-        data = Model().query('select * from books where title like "%'+keywords+'%"')
+        print("有keywords:")
+        print(keywords)
+        # 搜素书籍信息
+        data = Model().query('select * from wxapp.books where title like "' + keywords + '"')
     else:
         # 获取当前所有书籍信息,并返回json数据
-        data = Model().query('select * from books')
-    return jsonify(data)
+        data = Model().query('select * from wxapp.books')
+        print(data)
 
+    return jsonify(data)
 
 @api.route("/register",methods=['GET','POST'])
 def register():

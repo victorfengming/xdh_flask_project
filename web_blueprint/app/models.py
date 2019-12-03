@@ -33,7 +33,7 @@ class Model():
     # 属性
     Mysql_localhost = 'localhost'
     Mysql_username = 'root'
-    Mysql_password = '123456'
+    Mysql_password = ''
     Mysql_select_DB = 'wxapp'
     Mysql_charset = 'utf8mb4'
     Mysql_cursorclass=pymysql.cursors.DictCursor
@@ -44,10 +44,7 @@ class Model():
     def __init__(self):
         # 链接mysql
         # 打开数据库连接
-        self.Mysql_link = pymysql.connect(self.Mysql_localhost,self.Mysql_username,
-            self.Mysql_password,self.Mysql_select_DB,
-            charset=self.Mysql_charset,cursorclass=self.Mysql_cursorclass 
-            )
+        self.Mysql_link = pymysql.connect(self.Mysql_localhost,self.Mysql_username,self.Mysql_password,self.Mysql_select_DB,charset=self.Mysql_charset,cursorclass=self.Mysql_cursorclass)
         # 使用 cursor() 方法创建一个游标对象 cursor
         self.Mysql_cusor = self.Mysql_link.cursor()
 

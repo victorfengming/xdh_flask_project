@@ -19,5 +19,5 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 app.config['UP_DIR'] = BASE_DIR+'/app/static/uploads/'
 
 # 小程序的配置
-app.config['APPID'] = 'wx9695f00d6f1463a2'
-app.config['SECRET'] = 'a5ce99ca4eecae428fb6046bafb345ec'
+app.config['APPID'] = 'wxaa593d1b99bf0198'
+app.config['SECRET'] = '70c8318ee9efef3d1ecda53cf31199b9'
